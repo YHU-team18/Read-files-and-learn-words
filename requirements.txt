@@ -1,0 +1,4 @@
+Django==4.0.5
+
+# postgresとの連携に使用する
+psycopg2
