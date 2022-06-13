@@ -10,8 +10,8 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
   web:
-    build: .
-    command: python3 manage.py runserver 0.0.0.0:8000
+    build: docker_dir
+    command: python3 src/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
