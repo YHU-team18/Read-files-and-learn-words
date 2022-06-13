@@ -1,10 +1,11 @@
-# Django-on-Docker
+# Read-files-and-learn-words
 
-Docker上でDjangoを実行するための各種スクリプト
+Read files and learn words(RFLW,仮称)は、PDF等のファイルを読み込ませることでファイル内に含まれる単語を(一般での)頻度別に学習できるWebアプリ  
+Docker上でDjango,PostgreSQLを使用するWebアプリケーションになっている。
 
 ## セットアップ手順
 
-1. `git clone https://github.com/YHU-team18/Django-on-Docker.git`する。
+1. `git clone https://github.com/YHU-team18/Read-files-and-learn-words.git`する。
 1. `sh ./setup.sh`(Windows環境の場合は`./setup.sh`)する。
 1. Webブラウザで`localhost:8000`にアクセスする。
 
