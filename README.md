@@ -6,7 +6,7 @@ Docker上でDjango,PostgreSQLを使用するWebアプリケーションになっ
 ## セットアップ手順
 
 1. `git clone https://github.com/YHU-team18/Read-files-and-learn-words.git`する。
-1. `sh ./Read-files-and-learn-words/setup.sh`(Windows環境の場合は`./setup.sh`)する。
+1. `sh ./Read-files-and-learn-words/setup.sh`(Windows環境の場合は`./Read-files-and-learn-words/setup.sh`)する。
 1. Webブラウザで`localhost:8000`にアクセスする。
 
 ## DBについて
