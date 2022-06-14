@@ -11,7 +11,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
   web:
     build: ./docker_dir/
-    command: python3 manage.py runserver 0.0.0.0:8000
+    command: sh -c "python3 manage.py migrate --no-input && python3 manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./src:/code
     ports:
