@@ -14,10 +14,10 @@ class Word(models.Model):
     meaning = models.TextField()
     note = models.TextField()
 
-    thesis_id = models.AutoField()
-    pronounce_id = models.AutoField()
-    phonetics_id = models.AutoField()
-    meaning_id = models.AutoField()
+    thesis_id = models.IntegerField()
+    pronounce_id = models.IntegerField()
+    phonetics_id = models.IntegerField()
+    meaning_id = models.IntegerField()
 
     def __str__(self):
         return self.word
