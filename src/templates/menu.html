@@ -1,9 +1,70 @@
 {% extends "base.html" %}
 
 {% block title %}
-My name is Title
+Menu(RFLW)
 {% endblock title %}
 
 {% block content %}
-Hello World in menu.
+<br>
+<br>
+<figure class="text-center">
+    <blockquote class="blockquote">
+      <p>最高の英語学習がここにある</p>
+    </blockquote>
+    <figcaption class="blockquote-footer">
+        Read files and learn words <cite title="Source Title">by Team18</cite>
+    </figcaption>
+</figure>
+
+<div class="p-5 m-5">
+    <dl class="row">
+        <dt class="col-sm-3">
+            <a href="{% url 'input_da' %}">Input PDF</a>
+        </dt>
+        <dd class="col-sm-9">You can make us read and analyze a file and create Quiz and DataBase for only you.</dd>
+        <br>
+        <br>
+        <dt class="col-sm-3">
+            <a href="{% url 'quiz' %}">
+                Quiz
+            </a></dt>
+        <dd class="col-sm-9">
+          <p>You can try some Quiz (word, translate, listening, etc.).</p>
+          <!-- <p>And some more placeholder definition text.</p> -->
+        </dd>
+        <br>
+        <br>
+        <dt class="col-sm-3">
+            <a href="{% url 'add_words' %}">
+                Add Words
+            </a></dt>
+        </dt>
+        <dd class="col-sm-9">You can add words to DB not via PDF but manually.</dd>
+        <br>
+        <br>
+
+        <dt class="col-sm-3">
+            <a href="{% url 'list' %}">
+                View Your DB
+            </a></dt>
+        </dt>
+        <dd class="col-sm-9">You can view and update words' information.</dd>
+        <br>
+        <br>
+
+        <!-- <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
+        <dd class="col-sm-9">This can be useful when space is tight. Adds an ellipsis at the end.</dd>
+      
+        <dt class="col-sm-3">Nesting</dt>
+        <dd class="col-sm-9">
+          <dl class="row">
+            <dt class="col-sm-4">Nested definition list</dt>
+            <dd class="col-sm-8">I heard you like definition lists. Let me put a definition list inside your definition list.</dd>
+          </dl>
+        </dd> -->
+    </dl>
+</div>
+
+
+
 {% endblock content %}

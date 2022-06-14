@@ -10,9 +10,9 @@ class Word(models.Model):
     """
     word = models.CharField(max_length=100)
     importance = models.IntegerField(validators=[MinValueValidator(-10), MaxValueValidator(100)])
-    example_sentence = models.TextField()
+    example_sentence = models.TextField(blank=True)
     meaning = models.TextField()
-    note = models.TextField()
+    note = models.TextField(blank=True)
 
     thesis_id = models.IntegerField()
     pronounce_id = models.IntegerField()
