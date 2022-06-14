@@ -8,9 +8,9 @@ services:
       - POSTGRES_USER=db_user
       - POSTGRES_PASSWORD=db_pass
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/code
   web:
-    build: docker_dir
+    build: ./docker_dir/
     command: python3 src/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
