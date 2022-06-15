@@ -18,7 +18,7 @@ def get_BoW(file_dir):
     with open(file_dir, 'rb') as f:
         reader = PyPDF2.PdfFileReader(f)
         BoW = []
-        # 各ページごとに文字列を単語へ分割、レマ化を行いリストへ保存
+        # 各ページごとに文字列を単語へ分割後,レマ化を行いリストへ保存
         for i in range(reader.getNumPages()):
             page = reader.getPage(0)
             raw_text = page.extractText()
