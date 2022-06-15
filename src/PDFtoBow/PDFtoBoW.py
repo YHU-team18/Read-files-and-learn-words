@@ -4,8 +4,8 @@
 # nltk.download('stopwords')
 # nltk.download('omw-1.4')
 
-import PyPDF2
 import re
+import PyPDF2
 from nltk.stem.wordnet import WordNetLemmatizer as WNL
 from nltk.corpus import stopwords
 
