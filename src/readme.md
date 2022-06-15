@@ -25,9 +25,12 @@
 │   ├── urls.py # pathとclassの対応付等を設定をしているファイル
 │   └── views.py # Classを定義しているファイル(urlの対応が書いてある)
 └── yhu_t18
-    ├── __init__.py
-    ├── asgi.py
-    ├── settings.py
-    ├── urls.py
-    └── wsgi.py
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── PDFtoBoW
+    └── PDFtoBoW.py # PDFファイル(のパス)を文字列として与えられたら,その内容に含まれる英単語のBoWをPythonのリストとして返す.
+    
 ```
