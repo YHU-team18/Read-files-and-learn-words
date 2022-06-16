@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -25,3 +26,22 @@ class Word(models.Model):
     class Meta:
         ordering = ["-importance"]
 
+class Meaning(models.Model):
+    #word_意味のクラス
+    meaning = models.TextField()
+    word = models.OneToOneField(Word, on_delete=models.CASCADE)
+
+class Pronunce(models.Model):
+    #word_発音のクラス
+    pronunce = models.BinaryField()
+    word = models.OneToOneField(Word, on_delete=models.CASCADE)
+
+class Phonetics(models.Model):
+    #word_発音記号のクラス
+    Phonetics = models.CharField()
+    word = models.OneToOneField(Word, on_delete=models.CASCADE)
+
+class Frequency(models.Model):
+    #word_頻度のクラス
+    Frequency = models.IntegerField()
+    word = models.OneToOneField(Word, on_delete=models.CASCADE)
