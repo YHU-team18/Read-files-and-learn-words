@@ -1,0 +1,32 @@
+/* d&d CSS */
+.edit-profile-table{
+  box-sizing: border-box;
+  border: 1px solid #b8daff;
+  border-radius: 5px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 80px;
+}
+
+.edit-profile-table tr td {
+  margin: 15px;
+  border-radius: 50%;
+  border: 3px solid #b8daff;
+}
+
+#dragandrophandler{
+  border: 2px dotted #0B85A1;
+  height: 100px;
+  color: #92AAB0;
+  text-align: left;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 2em;
+}
+
+.edit-profile-table tr td div,
+.edit-profile-table tr td button{
+  margin: 13px;
+}
+
+/* d&d CSS */
