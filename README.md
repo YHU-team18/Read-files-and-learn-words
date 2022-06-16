@@ -11,7 +11,8 @@ Docker上でDjango,PostgreSQLを使用するWebアプリケーションになっ
 
 ### dev
 
-1. `sh dev.sh`でadminの追加をする. それ以降は上のセットアップと同じ.
+1. `docker compose up -d`をした後に
+1. `docker compose exec web sh dev.sh`でadminの追加をする. それ以降は上のセットアップと同じ.
 
 ## DBについて
 
