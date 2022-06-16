@@ -1,4 +1,4 @@
-'use strict';//厳格モード
+//'use strict';//厳格モード
 var error_text = "pdfを添付してください";
 
 // drag and drop event
@@ -49,14 +49,14 @@ function err_chk(files, obj) {
   var fd = new FormData(form);
   for (  var i = 0;  i < files.length;  i++  ) {
     var filetype = files[i].type;
-    var filename = files[i].name+"<br>";
+    var filename = files[i].name;
 
     // Validation
 
     // 1. File format
     if (!(filetype.match('(.pdf)$'))){
-        $('#dragandrophandler').after('<p class="error_list">ファイル形式が、pdf以外のものは使用できません。</p>');
-        $('#preview').remove();
+        document.getElementById('error_list').innerText = "ファイル形式が、pdf以外のものは使用できません。";
+        document.getElementById('preview').innerText = "";
         error_text = "ファイル形式が、pdf以外のものは使用できません。";
         return false;
     }
@@ -68,25 +68,24 @@ function err_chk(files, obj) {
       // 修士論文の枚数制限→40~120枚程度なので120で計算
       // A4,解像度300,白黒→300kb なので(120*300)/1024+αの40mbでブレイクポイント設定
       if (sizeMB > 40) {
-          $('#dragandrophandler').after('<p class="error_list">pdfサイズが大きすぎます。40MBより小さいサイズのpdfをお願いします.</p>');
-          $('#preview').remove();
+          document.getElementById('error_list').innerText = "pdfサイズが大きすぎます。40MBより小さいサイズのpdfをお願いします.";
+          document.getElementById('preview').innerText = "";
           error_text = "pdfサイズが大きすぎます。40MBより小さいサイズのpdfをお願いします.";
           return false;
       };
     };
     
-    document.getElementById('preview').innerHTML += filename;
+    document.getElementById('preview').innerText += filename;
+    document.getElementById('error_list').innerText = "";
+    error_text = "true";
     fd.append( i, file, filename );
    }
-   
-   $('.error_list').remove();
-   error_text = "";
   
 };
 
 //error_text check
 function check() {
-  if (error_text != "") {
+  if (error_text != "true") {
     return false;
   }
 
