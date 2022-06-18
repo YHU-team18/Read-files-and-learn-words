@@ -1,5 +1,6 @@
 //'use strict';//厳格モード
 var error_text = "pdfを添付してください";
+var fd = new FormData();
 
 // drag and drop event
 $(document).ready(function() {
@@ -21,13 +22,6 @@ $(document).ready(function() {
 
         // file error check
         err_chk(files, obj);
-
-        var reader = new FileReader();
-
-        var ele = document.getElementById('file-input');
-        // データを設定
-        ele.value = files;
-        console.log(files);
     });
 
     // Avoid opening in a browser if the file is dropped outside the div
@@ -81,12 +75,56 @@ function err_chk(files, obj) {
     document.getElementById('preview').innerText += filename;
     document.getElementById('error_list').innerText = "";
     error_text = "true";
+    fd.set('file', files[0]);
    }
 };
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
 
 //error_text check
 function check() {
   if (error_text != "true") {
     return false;
   }
+  fd.append("csrfmiddlewaretoken", getCookie("csrftoken"));
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("post", "/submit_pdf/", false);
+  xhr.onload = function () {
+    // 送信成功時の動作をここに記述する
+    console.log(fd)
+  };
+  xhr.onreadystatechange = function(){
+    if (this.readyState == 0) {
+      console.log("UNSENT:初期状態");
+    }
+    if (this.readyState == 1) {
+      console.log("OPENED:openメソッド実行");
+    }
+    if (this.readyState == 2) {
+      console.log("HEADERS_RECEIVED:レスポンスヘッダー受信");
+    }
+    if (this.readyState == 3) {
+      console.log("LOADING:データ受信中");
+    }
+    if (this.readyState == 4) {
+      console.log("DONE:リクエスト完了");
+    }
+  }
+  console.log(fd.getAll);
+  xhr.send(fd);
 }
