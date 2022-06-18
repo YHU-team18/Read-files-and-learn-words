@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block title %} PDF(RFLW) {% endblock title %} {% block content %}
+
+<br />
+<br />
+<figure class="text-center">
+  <blockquote class="blockquote">
+    <p>最高の英語学習がここにある</p>
+  </blockquote>
+  <figcaption class="blockquote-footer">Read files and learn words <cite title="Source Title">by Team18</cite></figcaption>
+</figure>
+
+<!-- https://getbootstrap.jp/docs/5.0/components/modal/ -->
+
+<div class="alert alert-primary" role="alert">下からファイルを追加することができます.</div>
+
+<p>送信完了</p>
+<p>{{pdf}}</p>
+{% endblock content %}

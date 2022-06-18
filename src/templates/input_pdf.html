@@ -2,7 +2,6 @@
 {% block title %}
 PDF(RFLW)
 {% endblock title %}
-
 {% block content %}
 <br>
 <br>
@@ -28,8 +27,9 @@ PDF(RFLW)
           <div id="dragandrophandler">ここにドラッグ&ドロップしてください</div>
           <p id="error_list"></p>
           <p id="preview"></p>
-          <form action="" method="post" id="form_element" enctype="multipart/form-data" name="foo" onsubmit="return check();">
+          <form action="{% url 'submit_pdf' %}" method="post" id="form_element" enctype="multipart/form-data" name="foo" onsubmit="return check();">
           {% csrf_token %}
+          <input type="file" name="file" id="file-input" required />
           <button type="submit" class="btn btn-primary">登録</button>
           </form>
       </td>

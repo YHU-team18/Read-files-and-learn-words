@@ -2,6 +2,7 @@ from re import template
 from django.views.generic import TemplateView, CreateView, ListView, CreateView, UpdateView, DetailView
 from .models import Word
 from django.urls import reverse_lazy
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -13,6 +14,24 @@ class InputPDF(CreateView):
     template_name: str = "input_pdf.html"
     model = Word
     fields = ("word", "importance", "example_sentence", "meaning_id")
+
+class SubmitPDF(CreateView):
+    """
+        PDFを送信すると読み込む View Class
+    """
+
+    template_name: str = "submit_pdf.html"
+    model = Word
+    fields = ("word", "importance", "example_sentence", "meaning_id")
+
+    def post(self, request, *args, **kwargs):
+        # self.kwargs["pdf"] = self.request.POST["file"][0]
+        # print("POST_PDF:", self.request.POST["file"][0])
+
+        pdf = self.request.FILES['file']
+        print("POST_PDF:", pdf)
+
+        return render(request, self.template_name, context=self.kwargs)
 
 class Quiz(ListView):
     """

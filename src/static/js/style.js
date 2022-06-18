@@ -18,9 +18,16 @@ $(document).ready(function() {
         e.preventDefault();
 
         var files = e.originalEvent.dataTransfer.files;
-        
+
         // file error check
         err_chk(files, obj);
+
+        var reader = new FileReader();
+
+        var ele = document.getElementById('file-input');
+        // データを設定
+        ele.value = files;
+        console.log(files);
     });
 
     // Avoid opening in a browser if the file is dropped outside the div
@@ -39,14 +46,10 @@ $(document).ready(function() {
         e.stopPropagation();
         e.preventDefault();
     });
-    
 });
-
 
 // file error check
 function err_chk(files, obj) {
-  var form = document.getElementById("form_element");
-  var fd = new FormData(form);
   for (  var i = 0;  i < files.length;  i++  ) {
     var filetype = files[i].type;
     var filename = files[i].name;
@@ -74,13 +77,11 @@ function err_chk(files, obj) {
           return false;
       };
     };
-    
+
     document.getElementById('preview').innerText += filename;
     document.getElementById('error_list').innerText = "";
     error_text = "true";
-    fd.append( i, file, filename );
    }
-  
 };
 
 //error_text check
@@ -88,5 +89,4 @@ function check() {
   if (error_text != "true") {
     return false;
   }
-
 }
