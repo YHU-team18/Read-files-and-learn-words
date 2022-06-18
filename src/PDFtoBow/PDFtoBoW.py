@@ -1,11 +1,12 @@
-# 初回のみ必要
-# import nltk
-# nltk.download('wordnet')
-# nltk.download('stopwords')
-# nltk.download('omw-1.4')
-
+import os
 from math import log
 import PyPDF2
+# 初回のみ必要
+if not os.path.isdir('/root/nltk_data/corpora'): # データが存在しない場合ダウンロードする
+    import nltk
+    nltk.download('wordnet')
+    nltk.download('stopwords')
+    nltk.download('omw-1.4')
 from nltk.stem.wordnet import WordNetLemmatizer as WNL
 from nltk.corpus import stopwords
 
