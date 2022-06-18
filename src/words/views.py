@@ -29,9 +29,6 @@ class SubmitPDF(CreateView):
     fields = ("word", "importance", "example_sentence", "meaning_id")
 
     def post(self, request, *args, **kwargs):
-        # self.kwargs["pdf"] = self.request.POST["file"][0]
-        # print("POST_PDF:", self.request.POST["file"][0])
-
         pdf = self.request.FILES['file']
         print("POST_PDF:", pdf)
 

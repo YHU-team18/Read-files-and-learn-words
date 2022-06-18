@@ -105,26 +105,8 @@ function check() {
   const xhr = new XMLHttpRequest();
   xhr.open("post", "/submit_pdf/", false);
   xhr.onload = function () {
-    // 送信成功時の動作をここに記述する
+    // 送信成功時
     console.log(fd)
   };
-  xhr.onreadystatechange = function(){
-    if (this.readyState == 0) {
-      console.log("UNSENT:初期状態");
-    }
-    if (this.readyState == 1) {
-      console.log("OPENED:openメソッド実行");
-    }
-    if (this.readyState == 2) {
-      console.log("HEADERS_RECEIVED:レスポンスヘッダー受信");
-    }
-    if (this.readyState == 3) {
-      console.log("LOADING:データ受信中");
-    }
-    if (this.readyState == 4) {
-      console.log("DONE:リクエスト完了");
-    }
-  }
-  console.log(fd.getAll);
   xhr.send(fd);
 }
