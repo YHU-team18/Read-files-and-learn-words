@@ -1,8 +1,8 @@
 # 初回のみ必要
-import nltk
-nltk.download('wordnet')
-nltk.download('stopwords')
-nltk.download('omw-1.4')
+# import nltk
+# nltk.download('wordnet')
+# nltk.download('stopwords')
+# nltk.download('omw-1.4')
 
 from math import log
 import PyPDF2
@@ -13,7 +13,7 @@ wnl = WNL()
 stop_words = stopwords.words('english')
 
 with open("words_by_frequency.txt", 'r') as f:
-    words = open("words_by_frequency.txt").read().split()
+    words = f.read().split()
 
 wordcost = dict((k, log((i+1)*log(len(words)))) for i,k in enumerate(words))
 maxword = max(len(x) for x in words)
@@ -37,15 +37,15 @@ def infer_spaces(s):
         cost.append(c)
 
     # コストの最も低くなる分割を探す
-    out = []
+    output = []
     i = len(s)
     while i>0:
         c,k = best_match(i)
         assert c == cost[i]
-        out.append(s[i-k:i])
+        output.append(s[i-k:i])
         i -= k
 
-    return " ".join(reversed(out))
+    return " ".join(reversed(output))
 
 def get_BoW(file_dir):
     """pdfファイルのパスを受け取り,BoWを返す
