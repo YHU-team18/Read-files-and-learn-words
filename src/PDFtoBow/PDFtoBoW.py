@@ -2,7 +2,7 @@ import os
 from math import log
 import PyPDF2
 # 初回のみ必要
-if not os.path.isdir('/root/nltk_data/corpora'): # データが存在しない場合ダウンロードする
+if not os.path.isfile('/root/nltk_data/corpora/wordnet'): # データが存在しない場合ダウンロードする
     import nltk
     nltk.download('wordnet')
     nltk.download('stopwords')
