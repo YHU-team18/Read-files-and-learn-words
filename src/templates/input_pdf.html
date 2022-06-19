@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block title %}
 PDF(RFLW)
 {% endblock title %}
@@ -22,10 +21,21 @@ PDF(RFLW)
     下からファイルを追加することができます.
 </div>
 
-<div class="card">
-    <div class="card-body">
-      Just Drag & Drop
-    </div>
-</div>
+<!--d&d-->
+<table class="edit-profile-table">
+  <tr>
+      <td>
+          <div id="dragandrophandler">ここにドラッグ&ドロップしてください</div>
+          <p id="error_list"></p>
+          <p id="preview"></p>
+          <form action="" method="post" id="form_element" enctype="multipart/form-data" name="foo" onsubmit="return check();">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">登録</button>
+          </form>
+      </td>
+  </tr>
+</table>
+
+<!--d&d-->
 
 {% endblock content %}
