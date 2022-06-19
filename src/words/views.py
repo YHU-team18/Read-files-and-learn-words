@@ -47,6 +47,7 @@ class Quiz(ListView):
     """
     template_name: str = "quiz.html"
     model = Word
+    paginate_by: int = 1
 
 class AllList(ListView):
     """
@@ -55,6 +56,7 @@ class AllList(ListView):
     # 実際はListViewにして様々な表示の方法をさせ,その一つ一つにUpdateを実装
     template_name: str = "all_list.html"
     model = Word
+    paginate_by: int = 5
 
 class UpDateI(UpdateView):
     """
@@ -62,6 +64,8 @@ class UpDateI(UpdateView):
     """
     template_name: str = "update_i.html"
     model = Word
+    success_url = reverse_lazy("all_list")
+    fields = ("word", "meaning", "note", "example_sentence", "importance")
 
 class AddWords(CreateView):
     """
