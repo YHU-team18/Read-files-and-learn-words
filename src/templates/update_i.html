@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+Update(RFLW)
+{% endblock title %}
+
+{% block content %}
+<div class="container p-5 m-1">
+    <form action="#" method="POST">
+        <table>
+            {{form.as_table}}
+        </table>
+        {% csrf_token %}
+        <input type="submit" value="UpDate">
+    </form>
+</div>
+
+{% endblock content %}
