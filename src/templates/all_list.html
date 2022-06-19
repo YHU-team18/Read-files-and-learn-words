@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}
+List(RFLW)
+{% endblock title %}
+
+{% block content %}
+<br>
+<br>
+<figure class="text-center">
+    <blockquote class="blockquote">
+      <p>最高の英語学習がここにある</p>
+    </blockquote>
+    <figcaption class="blockquote-footer">
+        Read files and learn words <cite title="Source Title">by Team18</cite>
+    </figcaption>
+</figure>
+
+<div class="container">
+    <a href="{% url 'add_words' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">New</a>
+    {% for i in word_list %}
+    <div class="border-bottom border-secondary">
+    <div class="row">
+        <div class="col-4">
+            <div class="d-inline-block p-2 text-bg-primary">
+                {{i.importance}} <h3>{{ i.word }}</h3>
+                [ {{i.phonetics_id}} ]
+                <br>
+                🎶 {{i.pronounce_id}} 
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="d-inline-block p-2 text-bg-dark">
+                <br>
+                <h3>{{ i.meaning}}</h3>
+                ▶︎ {{i.note}} 
+                <br>
+                <br>
+                ■ {{i.example_sentence}} 
+            </div>
+            <div class="text-right">
+                ----SLIDER---- 
+                <br>
+                <a href="{% url 'update_i' i.pk %}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">Detail & Update</a>
+            </div>
+            <br>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+  </div>
+<br>
+
+<nav aria-label="Page navigation example">
+
+    <ul class="pagination justify-content-center pagination-lg">
+        {% if page_obj.has_previous %}
+            {% if page_obj.number > 4 %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; first</a>
+                </li>
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if num <= page_obj.number|add:2 and num >= page_obj.number|add:-2 %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% if page_obj.number < page_obj.paginator.num_pages|add:-2 %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                </li>
+            {% endif %}
+        {% endif %}
+    </ul>
+
+</nav>
+
+{% endblock content %}
