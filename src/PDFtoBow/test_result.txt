@@ -1,0 +1,4 @@
+Test result on sample1:
+Processing time: 1.8609 [s]
+Test result on sample2:
+Processing time: 0.0649 [s]
