@@ -2,3 +2,7 @@ Django==4.0.5
 
 # postgresとの連携に使用する
 psycopg2
+
+# PythonでPDFからBoWを作成する
+nltk==3.7
+PyPDF2==2.2.0
