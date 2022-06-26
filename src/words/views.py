@@ -2,6 +2,11 @@ from re import template
 from django.views.generic import TemplateView, CreateView, ListView, CreateView, UpdateView, DetailView
 from .models import Word
 from django.urls import reverse_lazy
+from django.shortcuts import render
+import os
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.conf import settings
 
 # Create your views here.
 
@@ -13,6 +18,28 @@ class InputPDF(CreateView):
     template_name: str = "input_pdf.html"
     model = Word
     fields = ("word", "importance", "example_sentence", "meaning_id")
+
+class SubmitPDF(CreateView):
+    """
+        PDFを送信すると読み込む View Class
+    """
+
+    template_name: str = "submit_pdf.html"
+    model = Word
+    fields = ("word", "importance", "example_sentence", "meaning_id")
+
+    def post(self, request, *args, **kwargs):
+        pdf = self.request.FILES['file']
+        print("POST_PDF:", pdf)
+
+        # 受け取ったPDFファイルのセーブ(仮でセーブしている。ただ、過去の分も含めてすべて保存されたままになるため、できれば`InMemoryUploadedFile`のまま扱いたい。)
+        # `settings.py`にて、MEDIA_ROOTを指定しているため本処理を削除する際は同時に削除をすることを推奨
+        # 保存のために`src/tmp`フォルダを作成しているため、これも同時に削除することを推奨
+        path = default_storage.save('input_file.pdf', ContentFile(pdf.read()))
+        tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+        print("PDF_PATH:", tmp_file) # すでにファイルがある場合、ファイルパスが自動生成されるため、パスを取得・加工・表示
+
+        return render(request, self.template_name, context=self.kwargs)
 
 class Quiz(ListView):
     """

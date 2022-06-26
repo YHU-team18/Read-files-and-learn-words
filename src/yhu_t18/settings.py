@@ -131,3 +131,6 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# `views.py`にて仮でファイルを保存しているため、存在している。
+MEDIA_ROOT = os.path.join(BASE_DIR, 'tmp')
