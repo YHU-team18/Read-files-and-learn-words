@@ -28,9 +28,10 @@ class Word(models.Model):
     thesis_id = models.IntegerField(blank=True, null=True) # 本当は自動補完したい
     pronounce_id = models.IntegerField(blank=True, null=True)
     phonetics_id = models.IntegerField(blank=True, null=True)
-    
-    meaning_id = models.ForeignKey(Meaning, null=True, on_delete=models.SET_NULL, related_name='id')
-    default_meaning = models.ForeignKey(Meaning, null=True, on_delete=models.SET_NULL, related_name='meaning')
+
+    default_meaning = models.OneToOneField(Meaning, on_delete=models.SET_NULL, null=True, default = Meaning.word)
+    # meaning_id = models.ForeignKey(Meaning, null=True, on_delete=models.SET_NULL, related_name='meaning_id')
+    # default_meaning = models.ForeignKey(Meaning, null=True, on_delete=models.SET_NULL, related_name='default_meaning')
 
     def __str__(self):
         return self.word

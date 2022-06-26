@@ -1,6 +1,6 @@
 from re import template
 from django.views.generic import TemplateView, CreateView, ListView, CreateView, UpdateView, DetailView
-from .models import Word
+from .models import Word,Meaning
 from django.urls import reverse_lazy
 
 # Create your views here.
@@ -13,6 +13,9 @@ class InputPDF(CreateView):
     template_name: str = "input_pdf.html"
     model = Word
     fields = ("word", "importance", "example_sentence", "meaning_id")
+
+    def get_initial(self):
+        return super().get_initial()
 
 class Quiz(ListView):
     """
@@ -48,6 +51,10 @@ class AddWords(CreateView):
     model = Word
     fields = ("word", "importance", "example_sentence", "meaning","note")
     success_url = reverse_lazy("menu")
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial["word"] = self.request.meaning.word
 
 class Detail(DetailView):
     """
