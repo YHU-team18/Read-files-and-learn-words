@@ -1,5 +1,6 @@
 //'use strict';//厳格モード
 var error_text = "pdfを添付してください";
+var fd = new FormData();
 
 // drag and drop event
 $(document).ready(function() {
@@ -18,7 +19,7 @@ $(document).ready(function() {
         e.preventDefault();
 
         var files = e.originalEvent.dataTransfer.files;
-        
+
         // file error check
         err_chk(files, obj);
     });
@@ -39,14 +40,10 @@ $(document).ready(function() {
         e.stopPropagation();
         e.preventDefault();
     });
-    
 });
-
 
 // file error check
 function err_chk(files, obj) {
-  var form = document.getElementById("form_element");
-  var fd = new FormData(form);
   for (  var i = 0;  i < files.length;  i++  ) {
     var filetype = files[i].type;
     var filename = files[i].name;
@@ -74,19 +71,42 @@ function err_chk(files, obj) {
           return false;
       };
     };
-    
+
     document.getElementById('preview').innerText += filename;
     document.getElementById('error_list').innerText = "";
     error_text = "true";
-    fd.append( i, file, filename );
+    fd.set('file', files[0]);
    }
-  
 };
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
 
 //error_text check
 function check() {
   if (error_text != "true") {
     return false;
   }
+  fd.append("csrfmiddlewaretoken", getCookie("csrftoken"));
 
+  const xhr = new XMLHttpRequest();
+  xhr.open("post", "/submit_pdf/", false);
+  xhr.onload = function () {
+    // 送信成功時
+    console.log(fd)
+  };
+  xhr.send(fd);
 }
