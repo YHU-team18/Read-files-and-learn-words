@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  db:
+  db1:
     image: postgres
     environment:
       - POSTGRES_DB=postgres
@@ -9,6 +9,15 @@ services:
       - POSTGRES_PASSWORD=db_pass
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  db2:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=db_user
+      - POSTGRES_PASSWORD=db_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./dbs:/docker-entrypoint-initdb.d
   web:
     build: ./docker_dir/
     command: sh -c "python3 manage.py migrate --no-input && python3 manage.py runserver 0.0.0.0:8000"
@@ -17,7 +26,8 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      - db1
+      - db2
 
 volumes:
   postgres_data:
