@@ -1,4 +1,3 @@
-Test result on sample1:
-Processing time: 1.8609 [s]
-Test result on sample2:
-Processing time: 0.0649 [s]
+Processing time on /workspaces/Read-files-and-learn-words/src/PDFtoBoW/sample1.pdf: 2.3244 [s]
+Processing time on /workspaces/Read-files-and-learn-words/src/PDFtoBoW/sample2.pdf: 0.1826 [s]
+
