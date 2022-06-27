@@ -42,3 +42,4 @@ print(f'Processing time: {g2-s2:.4f} [s]')
 # {'単語': '辞書のエントリー'}のBoWについてちゃんと対応できているかテスト
 print(BoW_meaning1['activity'])
 print(BoW_meaning2['attributive'])
+
