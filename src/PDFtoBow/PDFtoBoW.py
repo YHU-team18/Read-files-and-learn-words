@@ -59,7 +59,12 @@ def infer_spaces(s):
     return " ".join(reversed(output))
 
 def lemmatization(file_dir):
-    """
+    """PDFファイルのパスを受け取り,レマ化した単語のリストを返す
+    Args:
+        file_dir (_str_): PDFファイルのパス
+
+    Returns:
+        _list_: レマ化された英単語文字列(_str_)のリスト
     """
     with open(file_dir, 'rb') as f:
         lemmatized_words = []
@@ -78,12 +83,12 @@ def lemmatization(file_dir):
     return lemmatized_words
 
 def get_BoW(file_dir):
-    """pdfファイルのパスを受け取り,{'英単語': 出現頻度}のdictを返す
+    """PDFファイルのパスを受け取り,{'英単語': 出現頻度}のdictを返す
     Args:
         file_dir (_str_): PDFファイルのパス
 
     Returns: 
-        _dict_: 英単語がkey,pdf内での出現頻度がvalueになったdict
+        _dict_: 英単語がkey,PDFファイル内での出現頻度がvalueになったdict
     """
     BoW_frequency = {}
     lemmatized_words = lemmatization(file_dir)
@@ -95,7 +100,7 @@ def get_BoW(file_dir):
     return BoW_frequency
 
 def get_meaning(file_dir): 
-    """pdfファイルのパスを受け取り,{'英単語': '辞書に記載されている意味'}のdictを返す
+    """PDFファイルのパスを受け取り,{'英単語': '辞書に記載されている意味'}のdictを返す
     Args:
         file_dir (_str_): PDFファイルのパス
 
