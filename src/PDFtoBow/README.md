@@ -10,3 +10,4 @@ Public Domain / CC0
 
 The English-Japanese dictionary data used here is taken from the repository by kujirahand (https://github.com/kujirahand/EJDict).
 The original data is stored as 'ejdict-hand-utf8.txt'
+
