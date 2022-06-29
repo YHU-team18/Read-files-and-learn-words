@@ -1,9 +1,10 @@
 import os
+import json
 from math import log
 
 import PyPDF2
 # 初回のみ必要
-if not os.path.isfile('/root/nltk_data/corpora/wordnet'): # データが存在しない場合ダウンロードする
+if not os.path.isdir('/root/nltk_data/corpora/wordnet'): # データが存在しない場合ダウンロードする
     import nltk
     nltk.download('wordnet')
     nltk.download('stopwords')
@@ -14,11 +15,16 @@ from nltk.corpus import stopwords
 wnl = WNL()
 stop_words = stopwords.words('english')
 
+# 単語頻度データの読み込み
 base_path = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.normpath(os.path.join(base_path, '../PDFtoBoW/words_by_frequency.txt'))
-
 with open(file_path, 'r') as f:
     words = f.read().split()
+
+# 英和辞典データの読み込み
+ejdict_path = os.path.normpath(os.path.join(base_path, '../PDFtoBoW/ejdict_all.json'))
+with open(ejdict_path, 'r') as f:
+    ejdict = json.load(f)
 
 wordcost = dict((k, log((i+1)*log(len(words)))) for i,k in enumerate(words))
 maxword = max(len(x) for x in words)
@@ -52,30 +58,62 @@ def infer_spaces(s):
 
     return " ".join(reversed(output))
 
-def get_BoW(file_dir):
-    """pdfファイルのパスを受け取り,BoWを返す
+def lemmatization(file_dir):
+    """PDFファイルのパスを受け取り,レマ化した単語のリストを返す
     Args:
         file_dir (_str_): PDFファイルのパス
 
-    Returns: 
-        _dict_: 英単語がkey,pdf内での出現回数がvalueになったdict
+    Returns:
+        _list_: レマ化された英単語文字列(_str_)のリスト
     """
     with open(file_dir, 'rb') as f:
+        lemmatized_words = []
         reader = PyPDF2.PdfFileReader(f)
-        BoW = {}
         # 各ページごとに文字列を単語へ分割後,レマ化を行いリストへ保存
         for i in range(reader.getNumPages()):
             page = reader.getPage(i)
             raw_text = page.extractText()
-            # 改行部分の処理としてハイフンと改行文字の除去を行う
+        # 改行部分の処理としてハイフンと改行文字の除去を行う
             bar = raw_text.translate(str.maketrans({'-': None, '\n': None}))
             for i in bar.split():
-                # スペースで分割できなかった単語に対しての分割を行う
+            # スペースで分割できなかった単語に対しての分割を行う
                 candidate_words = infer_spaces(i).split()
                 for word in candidate_words:
-                    lemmatized_word = wnl.lemmatize(word)
-                    if (lemmatized_word not in stop_words) and (len(lemmatized_word) > 1):
-                        BoW.setdefault(lemmatized_word, 0)
-                        BoW[lemmatized_word] += 1
+                    lemmatized_words.append(wnl.lemmatize(word))
+    return lemmatized_words
 
-    return BoW
+def get_BoW(file_dir):
+    """PDFファイルのパスを受け取り,{'英単語': 出現頻度}のdictを返す
+    Args:
+        file_dir (_str_): PDFファイルのパス
+
+    Returns: 
+        _dict_: 英単語がkey,PDFファイル内での出現頻度がvalueになったdict
+    """
+    BoW_frequency = {}
+    lemmatized_words = lemmatization(file_dir)
+    for lemmatized_word in lemmatized_words:
+        if (lemmatized_word not in stop_words) and (len(lemmatized_word) > 1):
+        # BoW_frequency: {'単語': 頻度}の辞書
+            BoW_frequency.setdefault(lemmatized_word, 0)
+            BoW_frequency[lemmatized_word] += 1
+    return BoW_frequency
+
+def get_meaning(file_dir): 
+    """PDFファイルのパスを受け取り,{'英単語': '辞書に記載されている意味'}のdictを返す
+    Args:
+        file_dir (_str_): PDFファイルのパス
+
+    Returns: 
+        _dict_: 英単語がkey,英和辞典に記載されている意味の文字列がvalueになったdict
+    """
+    BoW_meaning = {}
+    lemmatized_words = lemmatization(file_dir)
+    for lemmatized_word in lemmatized_words:
+        if (lemmatized_word not in stop_words) and (len(lemmatized_word) > 1):
+            # BoW_meaning: {'単語': '辞書のエントリー'}の辞書
+            meaning = ejdict.get(lemmatized_word, '') # 辞書に存在しない場合空の文字列を暫定のmeaningとして保持する
+            BoW_meaning[lemmatized_word] = meaning
+                        
+    return BoW_meaning
+
