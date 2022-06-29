@@ -14,7 +14,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'yhu_t18.settings')
 register = template.Library()  
 
 @register.simple_tag
-def my_tag():
+def add_sample_data():
     a = "Hello!!!"
     django.setup()
     from ..models import Word
@@ -43,4 +43,4 @@ def my_tag():
     run(f"echo 'class CFG:\n    num_thesis = {str(CFG.num_thesis + 1)}' >> {config_path}", shell=True)
     run(f"rm -rf {pdf_path}",shell=True)
 
-    return f"{error}{a} {word.word} {word.importance} from tmp() in pyfiles"
+    return f"{error}{a} {word.word} {word.importance} from my_tag tmp.py in templatetags"
