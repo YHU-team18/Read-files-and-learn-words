@@ -1,4 +1,7 @@
-{% extends "base.html" %} {% block title %} PDF(RFLW) {% endblock title %} {% block content %}
+{% extends "base.html" %} 
+{% load tmp %}
+
+{% block title %} PDF(RFLW) {% endblock title %} {% block content %}
 
 <br />
 <br />
@@ -13,6 +16,7 @@
 
 <div class="alert alert-primary" role="alert">下からファイルを追加することができます.</div>
 
-<p>送信完了</p>
+<p>{% my_tag %}</p>
+
 <p>{{pdf}}</p>
 {% endblock content %}
