@@ -29,7 +29,7 @@ PDF(RFLW)
           <p id="preview"></p>
           <form action="" method="post" id="form_element" enctype="multipart/form-data" name="foo" onsubmit="return check();">
           {% csrf_token %}
-          <a href="{% url 'submit_pdf' %}" button type="submit" class="btn btn-primary">登録</button>
+          <button type="submit" class="btn btn-primary" onclick="location.href='{% url 'submit_pdf' %}'">登録</button>
           </form>
       </td>
   </tr>

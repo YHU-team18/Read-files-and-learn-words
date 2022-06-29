@@ -15,10 +15,11 @@ register = template.Library()
 
 @register.simple_tag
 def add_sample_data():
+    print("aaa")
     a = "Hello!!!"
     django.setup()
     from ..models import Word
-    # from .PDFtoBow import PDFtoBoW
+    from .PDFtoBow import PDFtoBoW
     error = ""
     try:
         from .config import CFG
@@ -27,20 +28,46 @@ def add_sample_data():
         run(f"echo '#論文のidを記録 \nclass CFG:\n    num_thesis = {200}' >> {config_path}", shell=True)
 
     # ## ここでfor文を回して追加していく + 論文のIDを付与する
-
-    word = Word(word="Coffee",
-                    importance = 100-CFG.num_thesis ,#np.random.randint(100),
-                    example_sentence = "I was told that coffee is bad for you, but it's not so bad if you drink the right amount.",
-                    meaning = "珈琲",
-                    note = "コーヒーは美味しいよね"
-                    )
-    word.save()
-
-    if os.path.isfile(config_path):
-        run(f"rm {config_path}",shell=True)
+    print(CFG.num_thesis)
+    try:
+        print("debug: Lemmatization starts")
+        lemma_list = PDFtoBoW.lemmatization(pdf_path)
+        print("debug: Lemmatization finished")
+        print("debug: BoW starts")
+        bow_dict = PDFtoBoW.get_BoW_using_lemlist(lemma_list)
+        print("debug: BoW finished")
+        print("debug: ",f"{len(bow_dict)}")
+    except FileNotFoundError:
+        print("debug: FileNotFoundError")
+        return "There is no file. Please drag and drop pdf-file."
     
-    run(f"touch {config_path}", shell=True)
-    run(f"echo '#論文のidを記録 \nclass CFG:\n    num_thesis = {str(CFG.num_thesis + 1)}' >> {config_path}", shell=True)
-    run(f"rm -rf {pdf_path}",shell=True)
+    print("debug: Meaning starts")
+    mean_dict = PDFtoBoW.get_meaning_using_lemlist(lemma_list)
+    print("debug: Meaning finiehed")
 
-    return f"{error}{a} {word.word} {word.importance} from add_sample_data tmp.py in templatetags"
+    print("debug:", f"{len(bow_dict)},{len(mean_dict)}")
+
+    if (len(bow_dict) == 0) and (len(mean_dict) == 0):
+        if os.path.isfile(pdf_path):
+            run(f"rm {pdf_path}",shell=True)
+        return "I'm sorry that this pdf file is not readable by me."
+    
+    for ii, (i,v) in enumerate(bow_dict.items()):
+        word = Word(word=i,
+                    importance = min(100,v) ,#np.random.randint(100),
+                    example_sentence = "",
+                    meaning = mean_dict[i],
+                    note = f"論文のIDは{CFG.num_thesis}-{ii}-{len(bow_dict)}-{len(mean_dict)}",
+                    thesis_id = CFG.num_thesis
+                    )
+        word.save()
+        if ii==len(bow_dict)-1:
+            print("debug: Last stage")
+            if os.path.isfile(config_path):
+                run(f"rm {config_path}",shell=True)
+            
+            run(f"touch {config_path}", shell=True)
+            run(f"echo '#論文のidを記録 \nclass CFG:\n    num_thesis = {str(CFG.num_thesis + 1)}' >> {config_path}", shell=True)
+            run(f"rm -rf {pdf_path}",shell=True)
+
+            return f"(ID: {CFG.num_thesis}){error}{a} {word.word} {word.importance} from add_sample_data tmp.py in templatetags"
