@@ -14,9 +14,14 @@
 
 <!-- https://getbootstrap.jp/docs/5.0/components/modal/ -->
 
-<div class="alert alert-primary" role="alert">下からファイルを追加することができます.</div>
+<div class="alert alert-primary" role="alert">ファイルの送信が完了いたしました.</div>
 
 <p>{% my_tag %}</p>
 
-<p>{{pdf}}</p>
+<!-- <p>{{pdf}}</p> -->
+
+<p class="text-center">
+  <a href="{% url 'menu' %}" class="btn btn-primary">結果を見る(少し時間を置いてからクリック)</a>
+</p>
+
 {% endblock content %}

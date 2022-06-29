@@ -19,7 +19,12 @@ def my_tag():
     django.setup()
     from ..models import Word
     # from .PDFtoBow import PDFtoBoW
-    from .config import CFG
+    error = ""
+    try:
+        from .config import CFG
+    except ImportError:
+        error = "import error "
+        run(f"echo 'class CFG:\n    num_thesis = {200}' >> {config_path}", shell=True)
 
     # ## ここでfor文を回して追加していく + 論文のIDを付与する
 
@@ -35,8 +40,7 @@ def my_tag():
         run(f"rm {config_path}",shell=True)
     
     run(f"touch {config_path}", shell=True)
-    run(f"echo 'class CFG:' >> {config_path}", shell=True)
-    run(f"echo '    num_thesis = {str(CFG.num_thesis + 1)}' >> {config_path}")
+    run(f"echo 'class CFG:\n    num_thesis = {str(CFG.num_thesis + 1)}' >> {config_path}", shell=True)
     run(f"rm -rf {pdf_path}",shell=True)
 
-    return f"{a} {word.word} {word.importance} from tmp() in pyfiles"
+    return f"{error}{a} {word.word} {word.importance} from tmp() in pyfiles"
