@@ -53,14 +53,14 @@ def add_sample_data():
         return "I'm sorry that this pdf file is not readable by me."
     
     for ii, (i,v) in enumerate(bow_dict.items()):
-        word = Word(word=i,
-                    importance = min(100,v) ,#np.random.randint(100),
-                    example_sentence = "",
-                    meaning = mean_dict[i],
-                    note = f"論文のIDは{CFG.num_thesis}-{ii}-{len(bow_dict)}-{len(mean_dict)}",
-                    thesis_id = CFG.num_thesis
-                    )
-        word.save()
+        if not Word.objects.filter(word=i).exists():
+            Word.objects.create(word=i,
+                        importance = min(100,v) ,#np.random.randint(100),
+                        example_sentence = "",
+                        meaning = mean_dict[i],
+                        note = f"(新出)論文のIDは{CFG.num_thesis}-{ii}-{len(bow_dict)}-{len(mean_dict)}",
+                        thesis_id = CFG.num_thesis
+                        )
         if ii==len(bow_dict)-1:
             print("debug: Last stage")
             if os.path.isfile(config_path):
@@ -71,4 +71,4 @@ def add_sample_data():
             run(f"rm -rf {pdf_path}",shell=True)
             print("debug: rm pdf")
 
-            return f"(ID: {CFG.num_thesis}){error}{a} {word.word} {word.importance} from add_sample_data tmp.py in templatetags"
+            return f"(ID: {CFG.num_thesis}){error}{a} from add_sample_data tmp.py in templatetags"
