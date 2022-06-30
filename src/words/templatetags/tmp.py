@@ -15,7 +15,7 @@ register = template.Library()
 
 @register.simple_tag
 def add_sample_data():
-    print("aaa")
+    print("debug: add_sample_data() is called")
     a = "Hello!!!"
     django.setup()
     from ..models import Word
@@ -69,5 +69,6 @@ def add_sample_data():
             run(f"touch {config_path}", shell=True)
             run(f"echo '#論文のidを記録 \nclass CFG:\n    num_thesis = {str(CFG.num_thesis + 1)}' >> {config_path}", shell=True)
             run(f"rm -rf {pdf_path}",shell=True)
+            print("debug: rm pdf")
 
             return f"(ID: {CFG.num_thesis}){error}{a} {word.word} {word.importance} from add_sample_data tmp.py in templatetags"

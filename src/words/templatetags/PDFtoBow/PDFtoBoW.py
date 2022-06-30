@@ -69,7 +69,7 @@ def lemmatization(file_dir):
     with open(file_dir, 'rb') as f:
         lemmatized_words = []
         reader = PyPDF2.PdfFileReader(f)
-        print(f"Pages is {reader.getNumPages()}",end="  :  ")
+        print(f"debug: Pages is {reader.getNumPages()}")
         # 各ページごとに文字列を単語へ分割後,レマ化を行いリストへ保存
         for i in range(reader.getNumPages()):
             page = reader.getPage(i)
@@ -77,14 +77,14 @@ def lemmatization(file_dir):
         # 改行部分の処理としてハイフンと改行文字の除去を行う
             bar = raw_text.translate(str.maketrans({'-': None, '\n': None}))
             # print(type(page),type(raw_text),type(bar),"in lemma")
-            print(raw_text)
+            # print(raw_text)
             for i in bar.split():
             # スペースで分割できなかった単語に対しての分割を行う
                 candidate_words = infer_spaces(i).split()
                 # print(len(candidate_words),"in list of candidate_words of leamma")
                 for word in candidate_words:
                     lemmatized_words.append(wnl.lemmatize(word))
-    print(len(lemmatized_words))
+    print("debug: len(lemmatized_words), ",len(lemmatized_words))
     return lemmatized_words
 
 def get_BoW(file_dir):
@@ -133,14 +133,16 @@ def get_BoW_using_lemlist(lemma_list):
     BoW_frequency = {}
     lemmatized_words = lemma_list
     print("debug: getBow")
+    _debug_count=0
     for _i,lemmatized_word in enumerate(lemmatized_words):
-        if _i<10:
-            print("debug: ",_i,lemmatized_word, end="  ")
         if (lemmatized_word not in stop_words) and (len(lemmatized_word) > 1):
-        # BoW_frequency: {'単語': 頻度}の辞書
+            if _debug_count < 10:
+                _debug_count += 1
+                print("debug: ",_debug_count,lemmatized_word, end="  ")
+            # BoW_frequency: {'単語': 頻度}の辞書
             BoW_frequency.setdefault(lemmatized_word, 0)
             BoW_frequency[lemmatized_word] += 1
-    print("debug: ",len(BoW_frequency))
+    print("debug: len(BoW_frequency), ",len(BoW_frequency))
     return BoW_frequency
 
 def get_meaning_using_lemlist(lemma_list): 
