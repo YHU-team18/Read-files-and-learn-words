@@ -23,12 +23,14 @@ def add_sample_data():
     error = ""
     try:
         from .config import CFG
+        from copy import deepcopy
+        _CFG = deepcopy(CFG)
     except ImportError:
         error = "import error "
         run(f"echo '#論文のidを記録 \nclass CFG:\n    num_thesis = {200}' >> {config_path}", shell=True)
 
     # ## ここでfor文を回して追加していく + 論文のIDを付与する
-    print(CFG.num_thesis)
+    print(_CFG.num_thesis)
     try:
         print("debug: Lemmatization starts")
         lemma_list = PDFtoBoW.lemmatization(pdf_path)
@@ -58,8 +60,8 @@ def add_sample_data():
                         importance = min(100,v) ,#np.random.randint(100),
                         example_sentence = "",
                         meaning = mean_dict[i],
-                        note = f"(新出)論文のIDは{CFG.num_thesis}-{ii}-{len(bow_dict)}-{len(mean_dict)}",
-                        thesis_id = CFG.num_thesis
+                        note = f"(新出)論文のIDは{_CFG.num_thesis}-{ii}-{len(bow_dict)}-{len(mean_dict)}",
+                        thesis_id = _CFG.num_thesis
                         )
         if ii==len(bow_dict)-1:
             print("debug: Last stage")
@@ -67,8 +69,8 @@ def add_sample_data():
                 run(f"rm {config_path}",shell=True)
             
             run(f"touch {config_path}", shell=True)
-            run(f"echo '#論文のidを記録 \nclass CFG:\n    num_thesis = {str(CFG.num_thesis + 1)}' >> {config_path}", shell=True)
+            run(f"echo '#論文のidを記録 \nclass CFG:\n    num_thesis = {str(_CFG.num_thesis + 1)}' >> {config_path}", shell=True)
             run(f"rm -rf {pdf_path}",shell=True)
             print("debug: rm pdf")
 
-            return f"(ID: {CFG.num_thesis}){error}{a} from add_sample_data tmp.py in templatetags"
+            return f"(ID: {_CFG.num_thesis}){error}{a} from add_sample_data tmp.py in templatetags"

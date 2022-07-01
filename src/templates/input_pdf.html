@@ -27,10 +27,14 @@ PDF(RFLW)
           <div id="dragandrophandler">ここにドラッグ&ドロップしてください</div>
           <p id="error_list"></p>
           <p id="preview"></p>
-          <form action="" method="post" id="form_element" enctype="multipart/form-data" name="foo" onsubmit="return check();">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-primary" onclick="location.href='{% url 'submit_pdf' %}'">登録</button>
-          </form>
+
+          <div class="btn-group" role="group" aria-label="Basic example">
+              <form action="" method="post" id="form_element" enctype="multipart/form-data" name="foo" onsubmit="return check();">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Post</button>
+              </form>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="location.href='{% url 'res' %}'">Analysis</button>
       </td>
   </tr>
 </table>
