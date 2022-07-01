@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load tmp %}
+
 {% block title %}
 PDF(RFLW)
 {% endblock title %}
@@ -27,11 +29,12 @@ PDF(RFLW)
           <div id="dragandrophandler">ここにドラッグ&ドロップしてください</div>
           <p id="error_list"></p>
           <p id="preview"></p>
+          <p>{% get_latest_id %}</p>
 
           <div class="btn-group" role="group" aria-label="Basic example">
               <form action="" method="post" id="form_element" enctype="multipart/form-data" name="foo" onsubmit="return check();">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Post</button>
+                <button type="submit" class="btn btn-primary" onclick="location.href='{% url 'all_list' %}?search={% get_latest_id %}'">Post</button>
               </form>
           </div>
       </td>
