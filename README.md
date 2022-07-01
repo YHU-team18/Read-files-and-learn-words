@@ -25,3 +25,8 @@ PASSWORD = db_pass
 ```
 
 これらを変更するには、`./yhu_t18/settings.py`, `./docker-compose.yaml`の両方を更新する必要がある。
+
+# LICENCEについて
+
+- このリポジトリは MIT License で提供しています.
+- また,使用したデータやライブラリ,参考にした資料は`ThirdPartyNotices.txt`をご覧ください.
