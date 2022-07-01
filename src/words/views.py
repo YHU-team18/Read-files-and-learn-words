@@ -140,7 +140,7 @@ class AllList(ListView):
  
         if q_word:
             object_list = self.model.objects.filter(
-                Q(word__startswith=q_word) | Q(word__exact=q_word)) # startswith, icontains
+                Q(word__startswith=q_word) | Q(thesis_id__exact=q_word)) # startswith, icontains
         else:
             object_list = self.model.objects.all()
         return object_list
