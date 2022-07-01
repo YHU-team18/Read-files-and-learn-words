@@ -5,23 +5,15 @@ List(RFLW)
 {% endblock title %}
 
 {% block content %}
-<br>
-<br>
-<figure class="text-center">
-    <blockquote class="blockquote">
-      <p>最高の英語学習がここにある</p>
-    </blockquote>
-    <figcaption class="blockquote-footer">
-        Read files and learn words <cite title="Source Title">by Team18</cite>
-    </figcaption>
-</figure>
 
 <div class="container">
-    <form action="" method="get">
+    <form action="" method="get" class="text-right">
         <input name = "search" value="{{ request.GET.search }}" type="text">
         <button type="submit">Search by Word & Thesis_ID</button>
     </form>
-    <a href="{% url 'add_words' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">New</a>
+    <a href="{% url 'add_words' %}" class="btn btn-primary btn-xs active" role="button" aria-pressed="true">
+        New
+    </a>
     {% for i in word_list %}
     <div class="border-bottom border-secondary">
     <div class="row">
@@ -36,7 +28,7 @@ List(RFLW)
         <div class="col-8">
             <div class="d-inline-block p-2 text-bg-dark">
                 <br>
-                <h3>{{ i.meaning}}</h3>
+                <h5>{{ i.meaning}}</h5>
                 ▶︎ {{i.note}} 
                 <br>
                 <br>

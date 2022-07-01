@@ -1,5 +1,5 @@
 {% load static %}<!-- settings.pyのstaticfileの設定を読み込む -->
-<!-- {% load tmp %}words/templatetags/tmp.py を読み込む -->
+{% load strings %}
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -20,44 +20,38 @@
 <body>
     <!-- https://getbootstrap.jp/docs/4.5/components/navbar/ -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'menu' %}">RFLW</a>
+        <a class="navbar-brand" href="{% url 'menu' %}">{% call_string "main_title" %}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'menu' %}">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'menu' %}">{% call_string "home" %} <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+              <a class="nav-link" href="{% url 'input_da' %}">{% call_string "pdf" %} <span class="sr-only">(current)</span> </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown link
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
+              <a class="nav-link" href="{% url 'all_list' %}">{% call_string "review" %} <span class="sr-only">(current)</span> </a>
             </li>
           </ul>
         </div>
-
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </nav>
+
+    <br>
+    <br>
+    <figure class="text-center">
+        <blockquote class="blockquote">
+          <p>{% call_string "title" %}</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            {% call_string "subtitle" %} <cite title="Source Title">produced by {% call_string "author" %}</cite>
+        </figcaption>
+    </figure>
 
     {% block content %}
     {% endblock content %}
-
-
 
     <!-- https://getbootstrap.jp/docs/4.5/getting-started/introduction/ -->
     <!-- js -->

@@ -101,7 +101,7 @@ class SubmitPDF(CreateView):
                             example_sentence = "",
                             meaning = mean_dict[i],
                             note = f"(新出)論文のIDは{_CFG.num_thesis}-{ii}-{len(bow_dict)}-{len(mean_dict)}",
-                            thesis_id = _CFG.num_thesis
+                            thesis_id = str(_CFG.num_thesis)
                             )
             if ii==len(bow_dict)-1:
                 print("debug: Last stage")
@@ -140,7 +140,7 @@ class AllList(ListView):
  
         if q_word:
             object_list = self.model.objects.filter(
-                Q(word__startswith=q_word) | Q(thesis_id__exact=q_word)) # startswith, icontains
+                Q(word__startswith=q_word) | Q(thesis_id__iexact=q_word)) # startswith, icontains, exact
         else:
             object_list = self.model.objects.all()
         return object_list
