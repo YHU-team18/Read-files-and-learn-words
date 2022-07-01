@@ -129,7 +129,7 @@ def get_meaning(file_dir):
     return BoW_meaning
 
 def get_BoW_using_lemlist(lemma_list):
-    """PDFファイルのパスを受け取り,{'英単語': 出現頻度}のdictを返す
+    """lemma_listを受け取り,{'英単語': 出現頻度}のdictを返す
     Args:
         lemma_list (_list_): lemmatizationでレマ化されたリスト
 
@@ -152,7 +152,7 @@ def get_BoW_using_lemlist(lemma_list):
     return BoW_frequency
 
 def get_meaning_using_lemlist(lemma_list): 
-    """PDFファイルのパスを受け取り,{'英単語': '辞書に記載されている意味'}のdictを返す
+    """lemma_listを受け取り,{'英単語': '辞書に記載されている意味'}のdictを返す
     Args:
         lemma_list (_list_): lemmatizationでレマ化されたリスト
     
@@ -198,6 +198,43 @@ def get_IPA(file_dir):
     """
     BoW_IPA = {}
     lemmatized_words = lemmatization(file_dir)
+    for lemmatized_word in lemmatized_words:
+        if (lemmatized_word not in stop_words) and (len(lemmatized_word) > 1):
+            # BoW_Wikipedia_frequency: {'単語': Wikipediaデータ内での頻度}の辞書
+            pronunciation = ipa.convert(lemmatized_word)
+            BoW_IPA[lemmatized_word] = pronunciation
+    
+    return BoW_IPA
+
+
+def get_Wikipedia_frequency_from_lemma(lemma_list):
+    """lemma_listを受け取り,{'英単語': Wikipediaデータにおける頻度}のdictを返す
+    Args:
+        lemma_list (_list_): lemmatizationでレマ化されたリスト
+
+    Returns: 
+        _dict_: 英単語がkey,Wikipediaデータにおける単語の頻度を示すintがvalueとなったdict
+    """
+    BoW_Wikipedia_frequency = {}
+    lemmatized_words = lemma_list
+    for lemmatized_word in lemmatized_words:
+        if (lemmatized_word not in stop_words) and (len(lemmatized_word) > 1):
+            # BoW_Wikipedia_frequency: {'単語': Wikipediaデータ内での頻度}の辞書
+            freq  = Wikipedia_frequency.get(lemmatized_word, 0) # 辞書に存在しない場合空の文字列を暫定のmeaningとして保持する
+            BoW_Wikipedia_frequency[lemmatized_word] = freq
+    
+    return BoW_Wikipedia_frequency
+
+def get_IPA_from_lemma(lemma_list):
+    """lemma_listを受け取り,{'英単語': 'IPAを記した文字列'}のdictを返す
+    Args:
+        lemma_list (_list_): lemmatizationでレマ化されたリスト
+
+    Returns: 
+        _dict_: 英単語がkey,IPAを示す文字列がvalueとなったdict
+    """
+    BoW_IPA = {}
+    lemmatized_words = lemma_list
     for lemmatized_word in lemmatized_words:
         if (lemmatized_word not in stop_words) and (len(lemmatized_word) > 1):
             # BoW_Wikipedia_frequency: {'単語': Wikipediaデータ内での頻度}の辞書
