@@ -1,5 +1,6 @@
 import os
 import json
+import eng_to_ipa as ipa
 from math import log
 
 import PyPDF2
@@ -20,6 +21,11 @@ base_path = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.normpath(os.path.join(base_path, '../PDFtoBoW/words_by_frequency.txt'))
 with open(file_path, 'r') as f:
     words = f.read().split()
+
+# Wikipediaのオリジナルの頻度データの読み込み
+Wikipedia_frequency_path = os.path.normpath(os.path.join(base_path, '../PDFtoBoW/Wikipedia_frequency.json'))
+with open(Wikipedia_frequency_path, 'r')as f:
+    Wikipedia_frequency = json.load(f)
 
 # 英和辞典データの読み込み
 ejdict_path = os.path.normpath(os.path.join(base_path, '../PDFtoBoW/ejdict_all.json'))
@@ -163,3 +169,39 @@ def get_meaning_using_lemlist(lemma_list):
             BoW_meaning[lemmatized_word] = meaning
 
     return BoW_meaning
+
+def get_Wikipedia_frequency(file_dir):
+    """PDFファイルのパスを受け取り,{'英単語': Wikipediaデータにおける頻度}のdictを返す
+    Args:
+        file_dir (_str_): PDFファイルのパス
+
+    Returns: 
+        _dict_: 英単語がkey,Wikipediaデータにおける単語の頻度を示すintがvalueとなったdict
+    """
+    BoW_Wikipedia_frequency = {}
+    lemmatized_words = lemmatization(file_dir)
+    for lemmatized_word in lemmatized_words:
+        if (lemmatized_word not in stop_words) and (len(lemmatized_word) > 1):
+            # BoW_Wikipedia_frequency: {'単語': Wikipediaデータ内での頻度}の辞書
+            freq  = Wikipedia_frequency.get(lemmatized_word, 0) # 辞書に存在しない場合空の文字列を暫定のmeaningとして保持する
+            BoW_Wikipedia_frequency[lemmatized_word] = freq
+    
+    return BoW_Wikipedia_frequency
+
+def get_IPA(file_dir):
+    """PDFファイルのパスを受け取り,{'英単語': 'IPAを記した文字列'}のdictを返す
+    Args:
+        file_dir (_str_): PDFファイルのパス
+
+    Returns: 
+        _dict_: 英単語がkey,IPAを示す文字列がvalueとなったdict
+    """
+    BoW_IPA = {}
+    lemmatized_words = lemmatization(file_dir)
+    for lemmatized_word in lemmatized_words:
+        if (lemmatized_word not in stop_words) and (len(lemmatized_word) > 1):
+            # BoW_Wikipedia_frequency: {'単語': Wikipediaデータ内での頻度}の辞書
+            pronunciation = ipa.convert(lemmatized_word)
+            BoW_IPA[lemmatized_word] = pronunciation
+    
+    return BoW_IPA

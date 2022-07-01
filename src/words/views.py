@@ -1,13 +1,16 @@
 import os
 
 from re import template
+
 from django.views.generic import TemplateView, CreateView, ListView, CreateView, UpdateView, DetailView
-from .models import Word
 from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
+from django.db.models import Q
+
+from .models import Word
 
 # Create your views here.
 
@@ -130,6 +133,17 @@ class AllList(ListView):
     template_name: str = "all_list.html"
     model = Word
     paginate_by: int = 5
+
+    def get_queryset(self):
+        # Reference: https://noumenon-th.net/programming/2019/12/18/django-search/
+        q_word = self.request.GET.get('search')
+ 
+        if q_word:
+            object_list = self.model.objects.filter(
+                Q(word__startswith=q_word) | Q(word__exact=q_word)) # startswith, icontains
+        else:
+            object_list = self.model.objects.all()
+        return object_list
 
 class UpDateI(UpdateView):
     """

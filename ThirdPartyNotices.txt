@@ -1,0 +1,36 @@
+# 目次
+# 1. 使用したデータ
+# 2. 使用したライブラリ
+# 3. 参考にした記事や書籍
+
+# 1. 使用したデータ
+
+1.  IlyaSemenov/wikipedia-word-frequency (MIT Licenseで提供されているデータ)
+URL: https://github.com/IlyaSemenov/wikipedia-word-frequency/blob/master/results/enwiki-20210820-words-frequency.txt
+
+2. kujirahand/EJDict (No Copyright で提供されているデータ)
+URL: https://github.com/kujirahand/EJDict 
+
+# 2. 使用したライブラリ
+
+1. Docker: https://docs.docker.com/
+
+2. Python: https://www.python.org/
+
+3. Django: https://www.djangoproject.com/
+
+# 3. 参考にした記事やURL
+
+1. microsoft/vscode : https://github.com/microsoft/vscode
+
+2. Django documentation : https://docs.djangoproject.com/en/4.0/
+
+3. Django、ページング処理まとめ, Narito Blog, アクセス確認日 (2022/06/30) : https://blog.narito.ninja/detail/89
+
+4. Django 検索機能の基本[ListView], 思考の葉, アクセス確認日 (2022/06/30) : https://noumenon-th.net/programming/2019/12/18/django-search/
+
+5. Django入門ブログ構築チュートリアル レッスン1, フルスタックチャンネル, アクセス確認日 (2022/06/30) : https://www.youtube.com/watch?v=NeGGafSMov8
+
+6. 【Django】カスタムテンプレートフィルタ・テンプレートタグの作り方, DjangoBrothers BLOG ✍️, アクセス確認日 (2022/06/30) : https://djangobrothers.com/blogs/custom_template_tags_filters/
+
+7. 【Django】ViewクラスでCRUD(Create・Update・Delete)実装｜PythonでWebアプリ開発#16, DXCEL WAVE, アクセス確認日 (2022/06/30) : https://di-acc2.com/programming/python/5926/

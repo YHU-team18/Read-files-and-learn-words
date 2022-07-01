@@ -17,6 +17,10 @@ List(RFLW)
 </figure>
 
 <div class="container">
+    <form action="" method="get">
+        <input name = "search" value="{{ request.GET.search }}" type="text">
+        <button type="submit">Search by Word & Thesis_ID</button>
+    </form>
     <a href="{% url 'add_words' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">New</a>
     {% for i in word_list %}
     <div class="border-bottom border-secondary">
@@ -57,11 +61,11 @@ List(RFLW)
         {% if page_obj.has_previous %}
             {% if page_obj.number > 4 %}
                 <li class="page-item">
-                    <a class="page-link" href="?page=1">&laquo; first</a>
+                    <a class="page-link" href="?page=1&search={{ request.GET.search }}">&laquo; first</a>
                 </li>
             {% endif %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{ request.GET.search }}">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -72,19 +76,19 @@ List(RFLW)
                 {% if page_obj.number == num %}
                     <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
                 {% else %}
-                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}&search={{ request.GET.search }}">{{ num }}</a></li>
                 {% endif %}
             {% endif %}
         {% endfor %}
         {% if page_obj.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
             {% if page_obj.number < page_obj.paginator.num_pages|add:-2 %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&search={{ request.GET.search }}">last &raquo;</a>
                 </li>
             {% endif %}
         {% endif %}

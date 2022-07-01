@@ -6,3 +6,6 @@ psycopg2
 # PythonでPDFからBoWを作成する
 nltk==3.7
 PyPDF2==2.2.0
+
+# 単語から発音記号を取得する
+eng-to-ipa==0.0.2
