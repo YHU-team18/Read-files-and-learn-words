@@ -24,4 +24,9 @@ class Word(models.Model):
     
     class Meta:
         ordering = ["-importance"]
-
+        constraints = [
+            models.UniqueConstraint(
+                fields=["word"],
+                name="unique_word"
+            ),
+        ]
