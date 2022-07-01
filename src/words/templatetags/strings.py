@@ -25,10 +25,10 @@ class CFG:
     view_exp = 'You can view and update words\' information.'
 
     pdf_alert = "下からファイルを追加することができます."
-    exp_d_and_d = "ここにドラッグ&ドロップしてください"
+    exp_d_and_d = "ここにドラッグ&ドロップしてください."
 
     exp_pdf_1 = "今から解析するPDFのIDは 『"
-    exp_pdf_2 = " 』です.\n 検索の際に絞り込み検索を行えます."
+    exp_pdf_2 = "』です.\n 検索の際に絞り込み検索を行えます."
     exp_pdf_3 = "※ 読み込みの関係上,結果を見るためには,ページ移動後に再度読み込む必要がある可能性があります. ※"
 
     quiz_title_tag = "Quiz"
