@@ -16,7 +16,7 @@ class Word(models.Model):
 
     thesis_id = models.IntegerField(blank=True, null=True) # 本当は自動補完したい
     pronounce_id = models.IntegerField(blank=True, null=True)
-    phonetics_id = models.IntegerField(blank=True, null=True)
+    phonetic = models.CharField(blank=True, null=True, max_length=100, default='---')
     meaning_id = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
