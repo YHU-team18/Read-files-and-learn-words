@@ -67,3 +67,7 @@ print(sample2_meaning['attributive'])
 # IPAについてちゃんと出力できているかテスト
 print(sample1_IPA['activity'])
 print(sample2_IPA)
+
+# 頻度データにスケーリングを処理したものが正しく出力されているかテスト
+print(sample2_Wikipedia_frequency['attributive'])
+
