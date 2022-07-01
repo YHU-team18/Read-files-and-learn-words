@@ -17,20 +17,21 @@
                 {{i.importance}} <h3>{{ i.word }}</h3>
                 [ {{i.phonetic}} ]
                 <br>
-                🎶 {{i.pronounce_id}} 
+                🎶 {{i.pronounce_id}}
             </div>
         </div>
-        <div class="col-8">
+        <input type="button" id="ans_button" class="btn btn-primary btn-lg active" value="答え" onclick="document.getElementById('ans_button').style.display = 'none'; document.getElementById('ans').style.display = 'block';" />
+        <div class="col-8" id="ans" style="display: none">
             <div class="d-inline-block p-2 text-bg-dark">
                 <br>
                 <h3>{{ i.meaning}}</h3>
-                ▶︎ {{i.note}} 
+                ▶︎ {{i.note}}
                 <br>
                 <br>
-                ■ {{i.example_sentence}} 
+                ■ {{i.example_sentence}}
             </div>
             <div class="text-right">
-                ----SLIDER---- 
+                ----SLIDER----
                 <br>
                 <a href="{% url 'update_i' i.pk %}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">Detail & Update</a>
             </div>
