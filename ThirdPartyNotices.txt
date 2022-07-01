@@ -19,6 +19,8 @@ URL: https://github.com/kujirahand/EJDict
 
 3. Django: https://www.djangoproject.com/
 
+4. Bootstrap: https://getbootstrap.jp/docs/5.0/getting-started/introduction/
+
 # 3. 参考にした記事やURL
 
 1. microsoft/vscode : https://github.com/microsoft/vscode
