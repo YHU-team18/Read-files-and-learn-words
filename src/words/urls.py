@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from .views import InputPDF, Quiz, AllList, SubmitPDF, UpDateI, AddWords, Detail, ResultView
+from .views import InputPDF, Quiz, AllList, SubmitPDF, UpDateI, AddWords, Detail
 
 urlpatterns = [
     path('menu/', TemplateView.as_view(template_name='menu.html'), name = "menu"),
