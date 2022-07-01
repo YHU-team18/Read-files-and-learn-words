@@ -109,14 +109,14 @@ class SubmitPDF(CreateView):
             # Impotanceを産出する(仮)
             _v = int(100 * ((bow_dict[i] - min_bow_freq)/(max_bow_freq - min_bow_freq)))
             _v = int(0.3*_v)
-            _importance = int(int(-int(wiki_dict[i] + 10 )*0.7) + max(30, _v))
-            _importance = min(_importance + int(10*i_order_scaled), 100)
+            _importance = int(int(int(-wiki_dict[i] + 100)*(100/110))*0.7*0.3 + max(30, _v))
+            _importance = min(_importance + int(20*i_order_scaled), 100)
             _importance = max(_importance, -10)
             return _importance
         
         for ii, (i,v) in enumerate(sorted(bow_dict.items(),key = lambda x: x[1])):
-            # _importance = _calc_importance(i, ii/len(bow_dict))
-            # print(ii, i, _importance, int(100 * ((bow_dict[i] - min_bow_freq)/(max_bow_freq - min_bow_freq))), bow_dict[i])
+            _importance = _calc_importance(i, ii/len(bow_dict))
+            print(ii, i, _importance, int(100 * ((bow_dict[i] - min_bow_freq)/(max_bow_freq - min_bow_freq))), bow_dict[i])
             if not Word.objects.filter(word=i).exists():
                 Word.objects.create(word=i,
                             importance = _calc_importance(i, ii/len(bow_dict)) , # 文章中の出現度とwikiによる値で調節.
