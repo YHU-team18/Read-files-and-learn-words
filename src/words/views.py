@@ -122,15 +122,6 @@ class Quiz(ListView):
     model = Word
     paginate_by: int = 1
 
-class ResultView(ListView):
-    """
-    PDFの入力結果を表示するView
-    """
-    # 実際はListViewにして様々な表示の方法をさせ,その一つ一つにUpdateを実装
-    template_name: str = "res.html"
-    model = Word
-    paginate_by: int = 5
-
 class AllList(ListView):
     """
     Quiz でないが 一覧を表示する (アルファベット順)
