@@ -23,7 +23,7 @@ with open(file_path, 'r') as f:
     words = f.read().split()
 
 # Wikipediaのオリジナルの頻度データの読み込み
-Wikipedia_frequency_path = os.path.normpath(os.path.join(base_path, '../PDFtoBoW/Wikipedia_frequency.json'))
+Wikipedia_frequency_path = os.path.normpath(os.path.join(base_path, '../PDFtoBoW/scaled_Wikipedia_frequency.json'))
 with open(Wikipedia_frequency_path, 'r')as f:
     Wikipedia_frequency = json.load(f)
 
