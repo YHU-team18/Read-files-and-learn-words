@@ -108,7 +108,7 @@ class SubmitPDF(CreateView):
                             importance = min(100,v) ,#np.random.randint(100),
                             example_sentence = "",
                             meaning = mean_dict[i],
-                            note = f"新出論文のIDは{_CFG.num_thesis}-({len(bow_dict)}単語中の{ii}番目の単語として追加.)\n wiki_freq{wiki_dict[i]}",
+                            note = f"新出論文のIDは{_CFG.num_thesis}-({len(bow_dict)}単語中の{ii}番目の単語として追加.)\n scaled_wiki_freq {int(wiki_dict[i])}",
                             thesis_id = str(_CFG.num_thesis),
                             phonetic = phone_dict[i]
                             )
