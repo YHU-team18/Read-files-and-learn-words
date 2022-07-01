@@ -1,20 +1,11 @@
 {% extends "base.html" %}
+{% load strings %}
 
 {% block title %}
-Quiz(RFLW)
+{% call_string "quiz_title_tag" %}
 {% endblock title %}
 
 {% block content %}
-<br>
-<br>
-<figure class="text-center">
-    <blockquote class="blockquote">
-      <p>最高の英語学習がここにある(動的に意味などを見え隠れさせる)</p>
-    </blockquote>
-    <figcaption class="blockquote-footer">
-        Read files and learn words <cite title="Source Title">by Team18</cite>
-    </figcaption>
-</figure>
 
 <div class="container">
     <a href="{% url 'add_words' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">New</a>
@@ -24,7 +15,7 @@ Quiz(RFLW)
         <div class="col-4">
             <div class="d-inline-block p-2 text-bg-primary">
                 {{i.importance}} <h3>{{ i.word }}</h3>
-                [ {{i.phonetics_id}} ]
+                [ {{i.phonetic}} ]
                 <br>
                 🎶 {{i.pronounce_id}} 
             </div>
