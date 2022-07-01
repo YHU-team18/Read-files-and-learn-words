@@ -87,7 +87,15 @@ class SubmitPDF(CreateView):
         mean_dict = PDFtoBoW.get_meaning_using_lemlist(lemma_list)
         print("debug: Meaning finiehed")
 
-        print("debug:", f"{len(bow_dict)},{len(mean_dict)}")
+        print("debug: phonetics starts")
+        phone_dict = PDFtoBoW.get_IPA_from_lemma(lemma_list)
+        print("debug: phonetic finiehed")
+
+        print("debug: wiki starts")
+        wiki_dict = PDFtoBoW.get_Wikipedia_frequency_from_lemma(lemma_list)
+        print("debug: wiki finiehed")
+
+        print("debug:", f"{len(bow_dict)},{len(mean_dict)},{len(phone_dict)},{len(wiki_dict)}")
 
         if (len(bow_dict) == 0) and (len(mean_dict) == 0):
             if os.path.isfile(pdf_path):
@@ -100,8 +108,9 @@ class SubmitPDF(CreateView):
                             importance = min(100,v) ,#np.random.randint(100),
                             example_sentence = "",
                             meaning = mean_dict[i],
-                            note = f"(新出)論文のIDは{_CFG.num_thesis}-{ii}-{len(bow_dict)}-{len(mean_dict)}",
-                            thesis_id = _CFG.num_thesis
+                            note = f"新出論文のIDは{_CFG.num_thesis}-({len(bow_dict)}単語中の{ii}番目の単語として追加.)\n scaled_wiki_freq {int(wiki_dict[i])}",
+                            thesis_id = str(_CFG.num_thesis),
+                            phonetic = phone_dict[i]
                             )
             if ii==len(bow_dict)-1:
                 print("debug: Last stage")
@@ -140,7 +149,7 @@ class AllList(ListView):
  
         if q_word:
             object_list = self.model.objects.filter(
-                Q(word__startswith=q_word) | Q(thesis_id__exact=q_word)) # startswith, icontains
+                Q(word__startswith=q_word) | Q(thesis_id__iexact=q_word)) # startswith, icontains, exact
         else:
             object_list = self.model.objects.all()
         return object_list
