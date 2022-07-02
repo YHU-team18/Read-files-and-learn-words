@@ -15,13 +15,13 @@ class CFG:
     menu_title_tag = "HOME"
     input_title_tag = "INPUT"
 
-    input_pdf = "Input PDF"
+    input_pdf = "🗂 Input PDF"
     expla_input_pdf = "You can make us read and analyze a file and create Quiz and DataBase for only you."
-    quiz = 'Quiz'
+    quiz = '✔ Quiz'
     exp_quiz = 'You can try some Quiz (word, translate, listening, etc.).'
-    add_word = 'Add a New Word'
+    add_word = '🔠 Add a New Word'
     add_exp = 'You can add words to DB not via PDF but manually.'
-    view_db = 'View Your Data Base'
+    view_db = '👀 View Your Data Base'
     view_exp = 'You can view and update words\' information.'
 
     pdf_alert = "下からファイルを追加することができます."
