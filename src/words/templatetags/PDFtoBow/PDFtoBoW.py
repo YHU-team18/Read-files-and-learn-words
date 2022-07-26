@@ -32,6 +32,11 @@ ejdict_path = os.path.normpath(os.path.join(base_path, '../PDFtoBoW/ejdict_all.j
 with open(ejdict_path, 'r') as f:
     ejdict = json.load(f)
 
+# IPAデータの読み込み
+ipa_path = os.path.normpath(os.path.join(base_path, '../PDFtoBoW/Wikipedia_ipa.json'))
+with open(ipa_path, 'r') as f:
+    Wikipedia_ipa = json.load(f)
+ 
 wordcost = dict((k, log((i+1)*log(len(words)))) for i,k in enumerate(words))
 maxword = max(len(x) for x in words)
 
@@ -238,7 +243,8 @@ def get_IPA_from_lemma(lemma_list):
     for lemmatized_word in lemmatized_words:
         if (lemmatized_word not in stop_words) and (len(lemmatized_word) > 1):
             # BoW_Wikipedia_frequency: {'単語': Wikipediaデータ内での頻度}の辞書
-            pronunciation = ipa.convert(lemmatized_word)
+            # WikipediaのIPAデータを参照し、存在していればそれを取得、ない時のみeng_to_ipaを用いて発音記号を生成
+            pronunciation = Wikipedia_ipa.get(lemmatized_word, ipa.convert(lemmatized_word))
             BoW_IPA[lemmatized_word] = pronunciation
     
     return BoW_IPA
